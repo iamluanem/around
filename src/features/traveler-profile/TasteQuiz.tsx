@@ -5,7 +5,7 @@ import { DISCOVERY_LABEL, INTEREST_LABEL, paceLabel, STYLE_LABEL, TRIP_TYPE_LABE
 import { tripDays } from '@/domain/recommendation/engine';
 import { INTERESTS, TRAVEL_STYLES, TRIP_TYPES, type DiscoveryStyle, type TravelerProfile } from '@/domain/types';
 import { Button } from '@/components/ui/Button';
-import { Chip } from '@/components/ui/misc';
+import { Chip, Skeleton } from '@/components/ui/misc';
 import { useHydrated } from '@/lib/hydration';
 import { useAround } from '@/lib/store';
 import { cn, dayLabel, eur } from '@/lib/format';
@@ -138,6 +138,8 @@ export function TasteQuiz() {
       valid: true,
     },
   ];
+
+  if (!ok) return <div className="wrap max-w-3xl py-12"><Skeleton className="h-[60vh]" /></div>;
 
   const last = step === steps.length - 1;
   const finish = () => { setProfile(p, true); router.push('/stays'); };
