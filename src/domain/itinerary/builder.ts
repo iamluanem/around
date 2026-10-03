@@ -122,6 +122,9 @@ export function candidatesFor(slot: SlotKind, isOccasion: boolean, input: BuildI
 /** What a stop costs against the experience budget (walk-in dining is paid at the venue). */
 export const cost = (e: Experience) => (e.bookable ? e.price : 0);
 
+/** Upper bound for price sensitivity: high enough that even the protected occasion day picks the cheapest option. */
+const MAX_LAMBDA = 200;
+
 interface SlotPlan { date: string; time: string; slot: SlotKind; key: string; isOccasion: boolean; pool: Candidate[] }
 
 /**
@@ -180,9 +183,17 @@ export function buildItinerary(input: BuildInput): Itinerary {
   let result = assemble(0, dropped);
   if (result.total > budget) {
     // drop optional slots if even maximum thrift cannot fit
-    const optional = plans.filter((p) => SLOT_SPECS[p.slot].optional && !c.pinned[p.key]);
-    while (assemble(8, dropped).total > budget && optional.length) dropped.add(optional.shift()!.key);
-    let lo = 0, hi = 8;
+    // If even maximum thrift cannot fit, drop paid stops: optional first, then other days, the occasion last.
+    const rank = (p: SlotPlan) => (SLOT_SPECS[p.slot].optional ? 0 : p.isOccasion ? 2 : 1);
+    const droppable = plans.filter((p) => !c.pinned[p.key]).sort((a, b) => rank(a) - rank(b));
+    for (let r = assemble(MAX_LAMBDA, dropped); r.total > budget; r = assemble(MAX_LAMBDA, dropped)) {
+      const tier = droppable.filter((p) => !dropped.has(p.key) && (r.chosen.get(p.key) ? cost(r.chosen.get(p.key)!.e) : 0) > 0);
+      if (!tier.length) break;
+      const minRank = rank(tier[0]);
+      const victim = tier.filter((p) => rank(p) === minRank).sort((a, b) => cost(r.chosen.get(b.key)!.e) - cost(r.chosen.get(a.key)!.e))[0];
+      dropped.add(victim.key);
+    }
+    let lo = 0, hi = MAX_LAMBDA;
     for (let k = 0; k < 24; k++) {
       const mid = (lo + hi) / 2;
       if (assemble(mid, dropped).total > budget) lo = mid; else hi = mid;
