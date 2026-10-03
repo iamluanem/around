@@ -2,7 +2,7 @@
 
 > **Your stay is just the beginning.**
 >
-> Don't just book where you'll stay — discover what your stay can become.
+> Don't just book where you'll stay. Discover what your stay can become.
 
 AROUND is a proof-of-concept **Experience Intelligence & Commerce layer** for travel marketplaces. It turns accommodation discovery into experience discovery: every stay is ranked by the trip a traveler could have around it, an AI agent plans and reshapes the days, and experiences are sold together as a bundle.
 
@@ -13,7 +13,7 @@ AROUND is a proof-of-concept **Experience Intelligence & Commerce layer** for tr
 
 ## Product vision
 
-Marketplaces sell rooms. Travelers buy trips. AROUND closes that gap by understanding **who** is travelling, **why**, what they love, their budget, pace and how local they want to go — and scoring every stay by the experiences around it.
+Marketplaces sell rooms. Travelers buy trips. AROUND closes that gap by understanding **who** is travelling, **why**, what they love, their budget, pace and how local they want to go, and scoring every stay by the experiences around it.
 
 **The wow moment (≈ 3 minutes):** pick a stay → instantly see **"94% Experience Match"**, the reasons behind it, a map of what's around the door and a draft of the trip → let the AI build the full itinerary → reshape it by conversation → book it as one bundle.
 
@@ -27,7 +27,7 @@ Travelers choose where to stay without fully understanding what they can experie
 |---|---|
 | **Travel Taste Profile** | 6-question onboarding (trip type, interests, style, budget, pace, discovery style) + learned affinities |
 | **Experience Match** | Explainable 0–100 score for every stay and experience, with human-readable reasons and cautions |
-| **Stay Experience page** | "Stay here. Experience this." — score, reasons, layered map, walking timeline, trip preview |
+| **Stay Experience page** | "Stay here. Experience this.": score, reasons, layered map, walking timeline, trip preview |
 | **AI Trip Planner** | Free-text request → structured profile → budget-aware itinerary built around the stay |
 | **Agent** | Conversational edits ("make my birthday more romantic", "I don't like museums", "under €400", "more local", "replace the restaurant") with a visible tool trace |
 | **Bundles** | Dynamic discount, priced server-side, one checkout |
@@ -86,7 +86,7 @@ prisma/schema.prisma · prisma/seed.ts
 
 ## Recommendation engine
 
-`src/domain/recommendation/engine.ts` — deterministic, explainable, **no random scores**.
+`src/domain/recommendation/engine.ts`: deterministic, explainable, **no random scores**.
 
 ```
 score = interest × 0.30 + budget × 0.20 + location × 0.20
@@ -104,7 +104,7 @@ score = interest × 0.30 + budget × 0.20 + location × 0.20
 
 Every result returns `{ score, breakdown, reasons }` (stays also return `cautions`, `headline` and facts like *"12 highly-rated experiences nearby"*). The UI shows each component's contribution and the full formula.
 
-**Preference learning:** interactions update affinities — `VIEW +0.02 · CLICK +0.06 · SAVE +0.12 · LIKE +0.15 · BOOK +0.20 · REPLACE −0.12 · DISMISS −0.30` (range −1…2). Rankings, stay scores and itineraries react immediately; a toast and the *"Your taste, learning"* panel make it visible.
+**Preference learning:** interactions update affinities: `VIEW +0.02 · CLICK +0.06 · SAVE +0.12 · LIKE +0.15 · BOOK +0.20 · REPLACE −0.12 · DISMISS −0.30` (range −1…2). Rankings, stay scores and itineraries react immediately; a toast and the *"Your taste, learning"* panel make it visible.
 
 **Itinerary optimiser** (`domain/itinerary/builder.ts`): day templates (arrival · full day · occasion day · last day, adjusted for pace) define slots; each slot picks the candidate maximising `selection − λ·price/100`, and λ is found by bisection as the smallest price sensitivity that fits the budget. The occasion day is protected (λ × 0.1), so the birthday is the last place the plan economises. Walk-in dining is shown as an estimate and does not consume the experience budget; reservable tables do.
 
@@ -128,18 +128,18 @@ interface AIProvider {
 
 Prisma schema (`prisma/schema.prisma`): **User, TravelerProfile, Trip, Accommodation, Experience, ExperienceCategory, ExperienceProvider, Recommendation, Interaction, Itinerary, ItineraryItem, Bundle, Booking**, with `InteractionType = VIEW | CLICK | SAVE | DISMISS | BOOK | REPLACE | LIKE`.
 
-Seed data (`src/data/rome.ts`): 8 accommodations, 39 experiences/tours/cafés/walks, 10 restaurants, 5 nightlife venues, 8 cultural attractions — with prices, coordinates, ratings, categories, descriptions, durations, localness, contexts and time-of-day.
+Seed data (`src/data/rome.ts`): 8 accommodations, 39 experiences/tours/cafés/walks, 10 restaurants, 5 nightlife venues, 8 cultural attractions, with prices, coordinates, ratings, categories, descriptions, durations, localness, contexts and time-of-day.
 
 ## Run locally
 
-Requirements: Node 20.9+ (`.nvmrc` pins 22 — run `nvm use`).
+Requirements: Node 20.9+ (`.nvmrc` pins 22, run `nvm use`).
 
 ```bash
 npm install
 npm run dev          # http://localhost:3000
 ```
 
-That's it — the demo runs fully in memory, with no database, API keys or payments.
+That's it: the demo runs fully in memory, with no database, API keys or payments.
 
 Optional PostgreSQL:
 
@@ -156,9 +156,9 @@ Useful scripts: `npm run build`, `npm run typecheck`, `npm run test:engine` (pri
 | Variable | Default | Purpose |
 |---|---|---|
 | `DATA_SOURCE` | `memory` | `memory` or `prisma` |
-| `DATABASE_URL` | — | PostgreSQL connection (only for `prisma`) |
+| `DATABASE_URL` | - | PostgreSQL connection (only for `prisma`) |
 | `AI_PROVIDER` | `mock` | `mock` or `openai` |
-| `OPENAI_API_KEY` | — | Required for `openai` |
+| `OPENAI_API_KEY` | - | Required for `openai` |
 | `OPENAI_MODEL` | `gpt-4o-mini` | Planner model |
 | `PAYMENT_PROVIDER` | `mock` | Payments are always mocked in this MVP |
 
@@ -175,7 +175,7 @@ Useful scripts: `npm run build`, `npm run typecheck`, `npm run test:engine` (pri
 
 The funnel the demo makes visible: **Intent → Preference discovery → Accommodation discovery → Experience Match → Stay booking → Personalised itinerary → Experience booking → Bundle / cross-sell → Higher GMV**.
 
-Hypotheses (not measured facts — each needs an A/B test):
+Hypotheses (not measured facts, each needs an A/B test):
 
 1. Showing Experience Match increases **accommodation conversion**.
 2. Discovering experiences while choosing a stay increases **experience attach rate**.

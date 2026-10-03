@@ -64,7 +64,7 @@ export interface Accommodation extends GeoPoint {
   vibes: string[];
   maxGuests: number;
   bedrooms: number;
-  /** 0..1 — pedestrian friendliness of the block */
+  /** 0..1, pedestrian friendliness of the block */
   walkability: number;
 }
 
@@ -143,7 +143,7 @@ export interface ItineraryDay { date: string; title: string; isOccasion: boolean
 export interface Itinerary {
   stayId: string;
   days: ItineraryDay[];
-  /** bookable experiences — counts against the experience budget */
+  /** bookable experiences, counts against the experience budget */
   total: number;
   /** walk-in dining paid at the venue (informational) */
   diningEstimate: number;

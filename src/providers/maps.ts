@@ -40,7 +40,7 @@ export class LocalMapsProvider implements MapsProvider {
 
 export const maps: MapsProvider = new LocalMapsProvider();
 
-/** Approximate course of the Tiber through central Rome — used to draw the stylised map. */
+/** Approximate course of the Tiber through central Rome, used to draw the stylised map. */
 export const TIBER: GeoPoint[] = [
   [41.918, 12.4705], [41.912, 12.4728], [41.9065, 12.4738], [41.9035, 12.4695], [41.9025, 12.4655],
   [41.8995, 12.4652], [41.896, 12.4675], [41.8925, 12.4705], [41.8905, 12.4772], [41.886, 12.4792],

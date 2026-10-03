@@ -1,6 +1,6 @@
 import type { ScoreBreakdown } from '../types';
 
-/** Experience Match weights — must sum to 1. */
+/** Experience Match weights, must sum to 1. */
 export const WEIGHTS: ScoreBreakdown = {
   interest: 0.3,
   budget: 0.2,

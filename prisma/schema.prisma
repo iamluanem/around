@@ -1,4 +1,4 @@
-// AROUND — personalization & experience-commerce data model.
+// AROUND: personalization & experience-commerce data model.
 // The demo runs fully in memory by default (DATA_SOURCE=memory).
 // Set DATA_SOURCE=prisma + DATABASE_URL and run `npm run db:setup` to use PostgreSQL.
 

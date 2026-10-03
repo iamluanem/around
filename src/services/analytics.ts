@@ -8,7 +8,7 @@ import {
 /**
  * Simulated cohort for the demo dashboard.
  * Travelers are synthetic but every Experience Match is computed by the real engine.
- * The behavioural response curves below are HYPOTHESES to be validated by A/B testing — not observed data.
+ * The behavioural response curves below are HYPOTHESES to be validated by A/B testing, not observed data.
  */
 export const HYPOTHESES = {
   stayConversion: 'P(book stay) = 4% + 20% · ((match − 55) / 45)^1.5',
