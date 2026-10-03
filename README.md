@@ -35,7 +35,7 @@ Travelers choose where to stay without fully understanding what they can experie
 
 ## Demo walkthrough
 
-1. **Home** → *Start demo* (persona: 30th birthday in Rome, Oct 20–24, 2 guests, food · wine · culture · romance · hidden gems, €500 for experiences). Or *Customise* to take the quiz.
+1. **Home** → type any destination (autocomplete; Rome is the live demo city, others show a "coming soon" page) or *Start demo* (persona: 30th birthday in Rome, Oct 20–24, 2 guests, food · wine · culture · romance · hidden gems, €500 for experiences). Or *Customise* to take the quiz.
 2. **/stays** → stays sorted by Experience Match (Monti loft = 94%).
 3. **/stays/stay-monti-loft** → match ring, reasons, map layers, walking timeline, 4-day preview, nearby experiences (save / like / dismiss), score breakdown. *Reserve* (mock payment).
 4. **/trip** → *Build my trip* → itinerary with Book / Replace on every stop; chat with the concierge.
