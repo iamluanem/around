@@ -2,7 +2,10 @@
   "name": "around",
   "version": "0.1.0",
   "private": true,
-  "description": "AROUND — Your stay is just the beginning. An AI-powered Experience Intelligence & Commerce layer for travel marketplaces (independent proof of concept).",
+  "description": "AROUND \u2014 Your stay is just the beginning. An AI-powered Experience Intelligence & Commerce layer for travel marketplaces (independent proof of concept).",
+  "engines": {
+    "node": ">=20.9"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",

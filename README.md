@@ -132,7 +132,7 @@ Seed data (`src/data/rome.ts`): 8 accommodations, 39 experiences/tours/cafés/wa
 
 ## Run locally
 
-Requirements: Node 20+.
+Requirements: Node 20.9+ (`.nvmrc` pins 22 — run `nvm use`).
 
 ```bash
 npm install
