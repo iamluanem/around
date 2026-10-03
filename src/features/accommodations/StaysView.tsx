@@ -9,10 +9,12 @@ import { dayLabel, nightsBetween } from '@/lib/format';
 import { ProfileBar } from '@/features/traveler-profile/ProfileBar';
 import { StayCard } from './StayCard';
 import { SearchBar } from './SearchBar';
+import { ComingSoon } from './ComingSoon';
+import { findCity } from '@/data/cities';
 
 type Sort = 'match' | 'price' | 'rating';
 
-export function StaysView({ stays, experiences }: { stays: Accommodation[]; experiences: Experience[] }) {
+export function StaysView({ stays, experiences, destination }: { stays: Accommodation[]; experiences: Experience[]; destination?: string }) {
   const ok = useHydrated();
   const profile = useAround((s) => s.profile);
   const [sort, setSort] = useState<Sort>('match');
@@ -21,9 +23,19 @@ export function StaysView({ stays, experiences }: { stays: Accommodation[]; expe
   const sorted = [...stays].filter((s) => s.maxGuests >= profile.travelers).sort((a, b) =>
     sort === 'match' ? matches.get(b.id)!.score - matches.get(a.id)!.score : sort === 'price' ? a.nightlyPrice - b.nightlyPrice : b.rating - a.rating);
 
+  const unsupported = destination !== undefined && !findCity(destination)?.available;
+  if (unsupported) {
+    return (
+      <div className="wrap py-10">
+        <div className="mb-4 max-w-4xl"><SearchBar compact initialDestination={destination} /></div>
+        <ComingSoon query={destination} />
+      </div>
+    );
+  }
+
   return (
     <div className="wrap py-10">
-      <div className="mb-8 max-w-4xl"><SearchBar compact /></div>
+      <div className="mb-8 max-w-4xl"><SearchBar compact initialDestination="Rome" /></div>
       <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
         <div>
           <div className="eyebrow mb-2">{sorted.length} stays · {ok ? `${dayLabel(profile.startDate, { day: 'numeric', month: 'short' })} – ${dayLabel(profile.endDate, { day: 'numeric', month: 'short' })} · ${profile.travelers} guests` : ''}</div>

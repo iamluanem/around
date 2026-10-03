@@ -1,37 +1,47 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { findCity } from '@/data/cities';
+import { DestinationInput } from './DestinationInput';
 import { useHydrated } from '@/lib/hydration';
 import { useAround } from '@/lib/store';
 import { cn } from '@/lib/format';
 
-export function SearchBar({ compact = false }: { compact?: boolean }) {
+export function SearchBar({ compact = false, initialDestination }: { compact?: boolean; initialDestination?: string }) {
   const ok = useHydrated();
   const { profile, setProfile, track } = useAround();
   const router = useRouter();
   const [start, setStart] = useState(profile.startDate);
   const [end, setEnd] = useState(profile.endDate);
   const [guests, setGuests] = useState(profile.travelers);
+  const [dest, setDest] = useState(initialDestination ?? profile.destination);
 
-  const submit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const go = (destination: string) => {
     const s = useAround.getState();
-    setProfile({ ...s.profile, startDate: ok ? start : profile.startDate, endDate: ok ? end : profile.endDate, travelers: guests }, s.profileCompleted);
-    track('CLICK', 'accommodation', 'search:rome', [], true);
-    router.push(s.profileCompleted ? '/stays' : '/profile?next=/stays');
+    const city = findCity(destination);
+    if (!city?.available) {
+      track('CLICK', 'accommodation', `search:${destination.trim() || 'empty'}`, [], true);
+      router.push(`/stays?destination=${encodeURIComponent(destination.trim())}`);
+      return;
+    }
+    const p = s.profile;
+    const nextStart = ok ? start : p.startDate, nextEnd = ok ? end : p.endDate;
+    // only reset the plan when the trip itself changed
+    if (nextStart !== p.startDate || nextEnd !== p.endDate || guests !== p.travelers || p.destination !== city.name) {
+      setProfile({ ...p, destination: city.name, startDate: nextStart, endDate: nextEnd, travelers: guests }, s.profileCompleted);
+    }
+    track('CLICK', 'accommodation', `search:${city.id}`, [], true);
+    router.push(s.profileCompleted ? '/stays' : '/profile');
   };
+  const submit = (e: React.FormEvent) => { e.preventDefault(); go(dest); };
 
   const field = 'flex flex-col px-5 py-2.5 text-left';
   return (
     <form onSubmit={submit} className={cn('flex w-full flex-col gap-1 rounded-[28px] bg-white p-2 shadow-lift ring-1 ring-ink/5 sm:flex-row sm:items-center sm:rounded-full', compact && 'shadow-soft')}>
-      <label className={cn(field, 'sm:flex-1')}>
+      <div className={cn(field, 'sm:flex-1')}>
         <span className="text-[11px] font-semibold uppercase tracking-wider text-ink-500">Destination</span>
-        <select className="bg-transparent text-[15px] font-medium outline-none" defaultValue="Rome">
-          <option>Rome</option>
-          <option disabled>Lisbon — soon</option>
-          <option disabled>Kyoto — soon</option>
-        </select>
-      </label>
+        <DestinationInput value={dest} onChange={setDest} onPick={() => {}} />
+      </div>
       <span className="hidden h-8 w-px bg-ink/10 sm:block" />
       <label className={field}>
         <span className="text-[11px] font-semibold uppercase tracking-wider text-ink-500">Check in</span>
