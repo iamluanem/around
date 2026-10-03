@@ -63,7 +63,7 @@ export function TasteQuiz() {
     },
     {
       q: 'What are you into?',
-      hint: 'Pick as many as you like — we learn the rest from what you click.',
+      hint: 'Pick as many as you like, we learn the rest from what you click.',
       body: (
         <div className="flex flex-wrap gap-2.5">
           {INTERESTS.map((i) => (

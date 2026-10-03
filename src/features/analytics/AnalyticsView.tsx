@@ -115,7 +115,7 @@ export function AnalyticsView() {
                   <div><div className="font-serif text-3xl">{s.interactions.length}</div><div className="text-sand-300">interactions</div></div>
                   <div><div className="font-serif text-3xl">{s.bookings.length}</div><div className="text-sand-300">bookings</div></div>
                   <div><div className="font-serif text-3xl">{eur(myGmv)}</div><div className="text-sand-300">GMV</div></div>
-                  <div><div className="font-serif text-3xl">{myGmv ? pct(expGmv / myGmv) : '—'}</div><div className="text-sand-300">from experiences</div></div>
+                  <div><div className="font-serif text-3xl">{myGmv ? pct(expGmv / myGmv) : '-'}</div><div className="text-sand-300">from experiences</div></div>
                 </div>
               )}
               <div className="mt-4 text-[12.5px] text-sand-300">{Object.entries(mine).map(([k, v]) => `${k} ${v}`).join(' · ') || 'Interact with the demo to see your events here.'}</div>

@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-/** AROUND wordmark: an "O" ringed by an orbit — the stay at the centre, the trip around it. */
+/** AROUND wordmark: an "O" ringed by an orbit: the stay at the centre, the trip around it. */
 export function Logo() {
   return (
     <Link href="/" className="group flex items-center gap-2.5" aria-label="AROUND home">

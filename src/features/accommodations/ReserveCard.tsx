@@ -73,7 +73,7 @@ export function ReserveCard({ stay, matchScore }: { stay: Accommodation; matchSc
             <p className="mt-1 text-sm text-ink-500">{dayLabel(profile.startDate)} → {dayLabel(profile.endDate)} · {profile.travelers} guests</p>
             <div className="mt-5 rounded-2xl bg-white p-4 text-sm ring-1 ring-ink/10">
               <div className="flex justify-between"><span>Total (EUR)</span><b>{eur(total)}</b></div>
-              <div className="mt-2 text-ink-500">Paid with a mock payment provider — no card needed, nothing is charged.</div>
+              <div className="mt-2 text-ink-500">Paid with a mock payment provider: no card needed, nothing is charged.</div>
             </div>
             <Button className="mt-6 w-full" size="lg" disabled={busy} onClick={pay}>{busy ? 'Confirming…' : `Confirm and pay ${eur(total)}`}</Button>
           </>

@@ -119,7 +119,7 @@ export function StayDetailView({ stay, experiences }: { stay: Accommodation; exp
                     <span className="absolute -top-3 left-[18px] h-4 w-px bg-ink/15" />
                     <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-sand-100 text-sm">{ICON[layerOf(r.experience)]}</span>
                     <span className="min-w-0 text-[14px] leading-snug">
-                      <b className="font-semibold tabular-nums">{r.walkMinutes} min</b> — {r.experience.name}
+                      <b className="font-semibold tabular-nums">{r.walkMinutes} min</b> · {r.experience.name}
                       <span className="block text-[12px] text-ink-500">{r.match.score}% match</span>
                     </span>
                   </li>
@@ -131,7 +131,7 @@ export function StayDetailView({ stay, experiences }: { stay: Accommodation; exp
           {/* ── Trip preview ── */}
           {ok && (
             <section className="mt-14">
-              <SectionTitle eyebrow="If you stayed here" title={<>Your {preview.days.length} days, <em className="font-light text-terra">at a glance</em></>} sub={`A first draft built from your profile — ${eur(preview.total)} of your ${eur(preview.budget)} experience budget. The AI planner can reshape all of it.`} />
+              <SectionTitle eyebrow="If you stayed here" title={<>Your {preview.days.length} days, <em className="font-light text-terra">at a glance</em></>} sub={`A first draft built from your profile, ${eur(preview.total)} of your ${eur(preview.budget)} experience budget. The AI planner can reshape all of it.`} />
               <div className="no-scrollbar -mx-4 flex snap-x gap-4 overflow-x-auto px-4 pb-2">
                 {preview.days.map((d) => (
                   <div key={d.date} className={cn('w-[250px] shrink-0 snap-start rounded-3xl p-5', d.isOccasion ? 'bg-terra text-white' : 'bg-white ring-1 ring-ink/5')}>
@@ -149,7 +149,7 @@ export function StayDetailView({ stay, experiences }: { stay: Accommodation; exp
 
           {/* ── Nearby ── */}
           <section className="mt-14">
-            <SectionTitle eyebrow="Top matches nearby" title="Experiences picked for you" sub="Save, like or dismiss — every signal updates your taste profile and re-ranks the list." />
+            <SectionTitle eyebrow="Top matches nearby" title="Experiences picked for you" sub="Save, like or dismiss, every signal updates your taste profile and re-ranks the list." />
             <div className="grid gap-x-5 gap-y-9 sm:grid-cols-2 xl:grid-cols-3">
               {ok && nearby.map((r) => <ExperienceCard key={r.experience.id} e={r.experience} match={r.match} walk={r.walkMinutes} onOpen={() => openExp(r)} onHover={setHover} />)}
             </div>

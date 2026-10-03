@@ -70,7 +70,7 @@ export function BundleView({ experiences }: { experiences: Experience[] }) {
         <div>
           <div className="eyebrow mb-2 text-terra">Experience bundle</div>
           <h1 className="text-5xl font-medium leading-none">{name}</h1>
-          <p className="mt-3 max-w-xl text-ink-500">Everything bookable in your plan, in one checkout. The more you bundle, the more you save — untick anything you’d rather book later.</p>
+          <p className="mt-3 max-w-xl text-ink-500">Everything bookable in your plan, in one checkout. The more you bundle, the more you save, untick anything you’d rather book later.</p>
           <ul className="mt-8 space-y-3">
             {items.map(({ it, d, e }) => {
               const on = !bundleExcluded.includes(e.id);
@@ -105,7 +105,7 @@ export function BundleView({ experiences }: { experiences: Experience[] }) {
             {bundle.discount > 0 && <div className="mt-3 rounded-full bg-terra px-3 py-1.5 text-center text-sm font-semibold">You save {eur(bundle.discount)}</div>}
             <Button size="lg" className="mt-6 w-full" disabled={busy || bundle.lines.length < 2} onClick={book}>{busy ? 'Booking…' : 'Book experience bundle'}</Button>
             {bundle.lines.length < 2 && <p className="mt-2 text-center text-[12px] text-sand-300">Select at least 2 experiences</p>}
-            <p className="mt-4 text-[11.5px] leading-snug text-sand-300">Discount = 4% + 2% per experience, +2% when mixing 3+ categories, capped at 15%. Priced server-side. Demo payment — nothing is charged.</p>
+            <p className="mt-4 text-[11.5px] leading-snug text-sand-300">Discount = 4% + 2% per experience, +2% when mixing 3+ categories, capped at 15%. Priced server-side. Demo payment, nothing is charged.</p>
           </div>
         </aside>
       </div>

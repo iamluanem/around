@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { ButtonLink } from '@/components/ui/Button';
 
-export const metadata: Metadata = { title: 'Concept — AROUND' };
+export const metadata: Metadata = { title: 'Concept | AROUND' };
 
 const FUNNEL = [
   ['Traveler intent', 'Destination, dates, guests', '/'],
@@ -17,7 +17,7 @@ const FUNNEL = [
 
 const IMPACT = [
   ['Accommodation conversion', 'Showing what a stay unlocks reduces choice paralysis between similar listings.', 'A/B: match-ranked vs rating-ranked results; primary metric booking rate per search session.'],
-  ['Experience attach rate', 'Experiences are discovered at the moment of highest intent — while choosing the stay.', 'Share of stay bookings with ≥1 experience within 7 days.'],
+  ['Experience attach rate', 'Experiences are discovered at the moment of highest intent, while choosing the stay.', 'Share of stay bookings with ≥1 experience within 7 days.'],
   ['Cross-sell & bundles', 'A planned itinerary turns individual impulse buys into one curated order.', 'Bundle take-rate and items per order vs single-experience checkout.'],
   ['GMV per traveler', 'Stay + experiences + reservable dining in one journey.', 'Total GMV per booking traveler, 30-day window.'],
   ['Engagement & retention', 'A living plan and an agent give reasons to return before and during the trip.', 'Return visits pre-trip; repeat bookings within 12 months.'],
@@ -30,13 +30,13 @@ export default function ConceptPage() {
       <section className="wrap py-16 sm:py-24">
         <div className="eyebrow mb-4">Product concept · independent proof of concept</div>
         <h1 className="max-w-5xl text-balance text-5xl font-medium leading-[0.98] sm:text-7xl">An Experience Intelligence Layer <em className="font-light text-terra">for travel marketplaces.</em></h1>
-        <p className="mt-6 max-w-2xl text-lg leading-relaxed text-ink-500">AROUND explores how a stays marketplace could turn accommodation discovery into experience discovery — and capture the commerce that follows.</p>
+        <p className="mt-6 max-w-2xl text-lg leading-relaxed text-ink-500">AROUND explores how a stays marketplace could turn accommodation discovery into experience discovery, and capture the commerce that follows.</p>
       </section>
 
       <section className="border-y hairline bg-white/60">
         <div className="wrap grid gap-12 py-16 md:grid-cols-3">
           {[
-            ['Problem', 'Travelers choose where to stay without fully understanding what they can experience around the accommodation. Listings compete on photos, amenities and price — the trip itself is invisible.'],
+            ['Problem', 'Travelers choose where to stay without fully understanding what they can experience around the accommodation. Listings compete on photos, amenities and price, the trip itself is invisible.'],
             ['Opportunity', 'Connect accommodation discovery with personalised local experience discovery, at the moment of highest intent, and own the itinerary that follows the booking.'],
             ['Solution', 'An AI-powered Experience Intelligence Layer: a taste profile, an explainable Experience Match for every stay, an agentic planner and bundled experience checkout.'],
           ].map(([t, d], i) => (
@@ -51,7 +51,7 @@ export default function ConceptPage() {
 
       <section className="wrap py-20">
         <div className="eyebrow mb-3">The funnel this demo makes visible</div>
-        <h2 className="max-w-3xl text-4xl font-medium">From intent to GMV — every step is a working screen.</h2>
+        <h2 className="max-w-3xl text-4xl font-medium">From intent to GMV, every step is a working screen.</h2>
         <ol className="mt-10 grid gap-3 sm:grid-cols-3 lg:grid-cols-9">
           {FUNNEL.map(([t, d, href], i) => (
             <li key={t} className="relative">
@@ -70,7 +70,7 @@ export default function ConceptPage() {
           <div>
             <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-terra-100">How it works</div>
             <h2 className="mt-3 text-4xl font-medium">Explainable by design</h2>
-            <p className="mt-4 text-[15px] leading-relaxed text-sand-300">The Experience Match is a deterministic weighted model — no black box, no random numbers. Each component is shown to the traveler as a reason, and logged for offline evaluation against conversion.</p>
+            <p className="mt-4 text-[15px] leading-relaxed text-sand-300">The Experience Match is a deterministic weighted model, no black box, no random numbers. Each component is shown to the traveler as a reason, and logged for offline evaluation against conversion.</p>
             <pre className="mt-6 overflow-x-auto rounded-2xl bg-white/5 p-5 text-[12.5px] leading-relaxed text-sand-200">{`score = interest × 0.30
       + budget   × 0.20
       + location × 0.20
@@ -83,7 +83,7 @@ export default function ConceptPage() {
               ['Experience surfaces', 'Search · Stay page · Planner · Agent · Bundle checkout'],
               ['Agent & tools', 'searchExperiences · rankExperiences · getTravelerProfile · calculateDistance · checkBudget · buildItinerary · replaceExperience · createBundle'],
               ['Intelligence', 'Explainable recommendation engine · budget-aware itinerary optimiser · preference learning from interactions'],
-              ['Providers', 'AIProvider (Mock / OpenAI) · MapsProvider · PaymentProvider — swappable behind interfaces'],
+              ['Providers', 'AIProvider (Mock / OpenAI) · MapsProvider · PaymentProvider, swappable behind interfaces'],
               ['Data', 'Travelers · profiles · stays · experiences · providers · interactions · itineraries · bundles · bookings'],
             ].map(([t, d], i) => (
               <div key={t} className="rounded-2xl p-5 ring-1 ring-white/10" style={{ background: `rgba(194,83,43,${0.28 - i * 0.05})` }}>

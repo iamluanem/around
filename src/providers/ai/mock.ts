@@ -24,7 +24,7 @@ export class MockAIProvider implements AIProvider {
     const narrative = [
       understood.length ? `Understood: ${understood.join(' · ')}.` : '',
       `Your ${itinerary.days.length}-day ${profile.destination} plan${stay ? `, built around your stay in ${stay.neighborhood}` : ''}.`,
-      occ ? `${fmt(occ.date)} is your ${profile.occasion ?? 'big day'} — breakfast, a private moment of culture, sunset and a celebration dinner.` : '',
+      occ ? `${fmt(occ.date)} is your ${profile.occasion ?? 'big day'}: breakfast, a private moment of culture, sunset and a celebration dinner.` : '',
       `Experiences total €${itinerary.total} of your €${itinerary.budget} budget.`,
     ].filter(Boolean).join(' ');
     return { itinerary, profile, narrative, toolCalls: tk.calls };

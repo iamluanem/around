@@ -6,7 +6,7 @@ import { catalogRepository, eventRepository } from '@/repositories';
 
 const SERVICE_FEE = 0.08;
 
-/** Prices are always recomputed server-side from the catalogue — the client only sends ids. */
+/** Prices are always recomputed server-side from the catalogue, the client only sends ids. */
 export async function POST(req: Request) {
   const body = await req.json().catch(() => ({}));
   let amount = 0, label = '', refIds: string[] = [];

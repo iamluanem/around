@@ -53,7 +53,7 @@ export function ExperienceModal({ e, match, walk, onClose }: { e: Experience | n
         <div className="mt-6 flex flex-wrap gap-3">
           {e.bookable ? (
             booked ? <Button variant="soft" disabled>✓ Booked</Button> : <Button onClick={book} disabled={busy}>{busy ? 'Booking…' : `Book · ${eur(e.price)}`}</Button>
-          ) : <span className="text-sm text-ink-500">{e.price === 0 ? 'Free — no booking needed.' : 'Walk-in · pay at the venue.'}</span>}
+          ) : <span className="text-sm text-ink-500">{e.price === 0 ? 'Free, no booking needed.' : 'Walk-in · pay at the venue.'}</span>}
           <Button variant="secondary" onClick={onClose}>Close</Button>
         </div>
       </div>

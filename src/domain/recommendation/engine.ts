@@ -109,7 +109,7 @@ export function matchExperience(e: Experience, p: TravelerProfile, opts: MatchOp
   const liked = interest.matched.filter((t) => t !== 'romantic' && t !== 'hidden-gems');
   if (breakdown.interest >= 0.55 && liked.length) reasons.push(`Matches your love of ${list(liked.slice(0, 2).map((t) => INTEREST_PHRASE[t]))}`);
   if (e.tags.includes('romantic') && affinity(p, 'romantic') > 0) reasons.push('Romantic setting for two');
-  if (e.price === 0) reasons.push('Free — keeps your budget for the big moments');
+  if (e.price === 0) reasons.push('Free, so your budget goes to the big moments');
   else if (breakdown.budget >= 0.85) reasons.push(`Within your daily budget (€${e.price} of €${Math.round(daily)})`);
   if (walkMinutes <= 12) reasons.push(`${walkMinutes} min walk from your stay`);
   if (p.discoveryStyle === 'local' && e.localness >= 0.75) reasons.push('A local favourite, off the tourist trail');
@@ -183,16 +183,16 @@ export function matchStay(stay: Accommodation, experiences: Experience[], p: Tra
   const reasons: string[] = [];
   const cautions: string[] = [];
   const food = byInterest.food ?? 0;
-  if (affinity(p, 'food') > 0 && food >= 4) reasons.push(`Excellent food scene — ${food} top-rated food spots within ${NEARBY_MIN} min`);
+  if (affinity(p, 'food') > 0 && food >= 4) reasons.push(`Excellent food scene: ${food} top-rated food spots within ${NEARBY_MIN} min`);
   if (facts.highlyRated >= 5) reasons.push(`${facts.highlyRated} highly-rated experiences nearby`);
   if ((p.tripType === 'birthday' || p.tripType === 'romantic') && (byInterest.romantic ?? 0) >= 3) reasons.push('Strong romantic atmosphere');
   if (affinity(p, 'wine') > 0 && (byInterest.wine ?? 0) >= 2) reasons.push(`${byInterest.wine} wine experiences on your doorstep`);
   if (facts.withinBudget >= 4) reasons.push(`${facts.withinBudget} activities within your daily budget`);
-  if (facts.avgWalk <= 12) reasons.push(`Walkable — your top picks average ${facts.avgWalk} min on foot`);
+  if (facts.avgWalk <= 12) reasons.push(`Walkable: your top picks average ${facts.avgWalk} min on foot`);
   if (p.discoveryStyle === 'local' && (byInterest['hidden-gems'] ?? 0) >= 3) reasons.push(`${byInterest['hidden-gems']} hidden gems & local favourites nearby`);
 
   for (const t of wanted) if ((byInterest[t] ?? 0) === 0 && t !== 'hidden-gems') cautions.push(`Few ${INTEREST_PHRASE[t]} options within walking distance`);
-  if (facts.avgWalk > 18) cautions.push(`Your best matches are ~${facts.avgWalk} min away — expect taxis or transit`);
+  if (facts.avgWalk > 18) cautions.push(`Your best matches are ~${facts.avgWalk} min away, expect taxis or transit`);
 
   const strongest = wanted
     .filter((t) => (byInterest[t] ?? 0) >= 2 && t !== 'hidden-gems')

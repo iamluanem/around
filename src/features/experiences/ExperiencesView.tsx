@@ -25,7 +25,7 @@ export function ExperiencesView({ experiences, stays }: { experiences: Experienc
 
   return (
     <div className="wrap py-10">
-      <div className="eyebrow mb-2">{ok ? (stay ? `Ranked from ${stay.title}` : 'Ranked from the centre of Rome — pick a stay for walking times') : ' '}</div>
+      <div className="eyebrow mb-2">{ok ? (stay ? `Ranked from ${stay.title}` : 'Ranked from the centre of Rome, pick a stay for walking times') : ' '}</div>
       <h1 className="text-4xl font-medium sm:text-5xl">Experiences, <em className="font-light text-terra">in order of you</em></h1>
       <div className="mt-4">{ok && <ProfileBar profile={profile} />}</div>
       <div className="no-scrollbar mt-6 flex gap-2 overflow-x-auto">

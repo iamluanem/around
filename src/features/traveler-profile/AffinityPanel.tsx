@@ -18,7 +18,7 @@ export function AffinityPanel() {
         <div className="eyebrow">Your taste, learning</div>
         <span className="flex items-center gap-1.5 text-[11px] text-olive"><span className="h-1.5 w-1.5 animate-pulse-dot rounded-full bg-olive" />live</span>
       </div>
-      <p className="mt-2 text-[12.5px] leading-snug text-ink-500">Open, save or like food spots — or dismiss nightlife — and watch the weights move. Rankings update instantly.</p>
+      <p className="mt-2 text-[12.5px] leading-snug text-ink-500">Open, save or like food spots, or dismiss nightlife, and watch the weights move. Rankings update instantly.</p>
       <ul className="mt-4 space-y-2.5">
         {rows.map(({ t, v }) => {
           const ch = recent.get(t);

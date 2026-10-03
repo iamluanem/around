@@ -15,7 +15,7 @@ export default function Home() {
             Your stay is <em className="font-light text-terra">just the beginning.</em>
           </h1>
           <p className="mt-6 max-w-xl text-[17px] leading-relaxed text-ink-500">
-            Don’t just book where you’ll stay — discover what your stay can become. AROUND learns who you’re travelling with, why, and what you love — then ranks every stay by the trip you could have around it.
+            Don’t just book where you’ll stay. Discover what your stay can become. AROUND learns who you’re travelling with, why, and what you love, then ranks every stay by the trip you could have around it.
           </p>
           <div className="mt-9 max-w-[760px]"><SearchBar /></div>
           <DemoStart />
@@ -36,7 +36,7 @@ export default function Home() {
         <div className="wrap grid gap-10 py-16 md:grid-cols-3">
           {[
             ['01', 'Tell us your taste', 'Six quick questions build a Travel Taste Profile: occasion, interests, style, budget, pace and how local you like it.'],
-            ['02', 'See the trip, not just the room', 'Every stay gets an explainable Experience Match — what’s nearby, what fits your budget, how walkable your best picks are.'],
+            ['02', 'See the trip, not just the room', 'Every stay gets an explainable Experience Match: what’s nearby, what fits your budget, how walkable your best picks are.'],
             ['03', 'Let the agent plan it', 'An AI planner builds your days, reshapes them by conversation, and bundles experiences into one checkout.'],
           ].map(([n, t, d]) => (
             <div key={n}>
@@ -51,7 +51,7 @@ export default function Home() {
       <section className="wrap flex flex-col items-start justify-between gap-6 py-16 sm:flex-row sm:items-center">
         <div>
           <div className="eyebrow mb-2">For marketplace teams</div>
-          <h2 className="max-w-2xl text-3xl font-medium sm:text-4xl">From room inventory to experience commerce — the business case in one page.</h2>
+          <h2 className="max-w-2xl text-3xl font-medium sm:text-4xl">From room inventory to experience commerce: the business case in one page.</h2>
         </div>
         <ButtonLink href="/concept" variant="dark" size="lg">Read the concept →</ButtonLink>
       </section>

@@ -41,7 +41,7 @@ export function MatchBreakdown({ match, compact = false }: { match: MatchResult;
       {open && (
         <pre className="mt-2 overflow-x-auto rounded-2xl bg-ink p-4 text-[11.5px] leading-relaxed text-sand-100">{`score = ${keys.map((k) => `${k} × ${WEIGHTS[k]}`).join('\n      + ')}
       = ${keys.map((k) => (match.breakdown[k] * WEIGHTS[k]).toFixed(3)).join(' + ')}
-      = ${match.score} / 100   (deterministic — no randomness)`}</pre>
+      = ${match.score} / 100   (deterministic, no randomness)`}</pre>
       )}
     </div>
   );

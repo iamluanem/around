@@ -34,13 +34,13 @@ export function executeActions(ctx: AgentContext, actions: AgentAction[]): Agent
       case 'romance':
         if (a.scope === 'occasion') constraints.occasionBoost = Math.min(1.2, (constraints.occasionBoost ?? 0) + 0.45);
         else constraints.romanceBoost = Math.min(0.7, constraints.romanceBoost + 0.35);
-        lines.push(a.scope === 'occasion' ? 'I leaned your birthday into romance — intimate settings, golden-hour moments and a celebration table.' : 'I dialled up the romance across your trip.');
+        lines.push(a.scope === 'occasion' ? 'I leaned your birthday into romance: intimate settings, golden-hour moments and a celebration table.' : 'I dialled up the romance across your trip.');
         break;
       case 'exclude': {
         constraints.excludeSubcategories = [...new Set([...constraints.excludeSubcategories, ...a.subcategories])];
         constraints.excludeTags = [...new Set([...constraints.excludeTags, ...a.tags])];
         if (a.tags.length) profile = { ...profile, affinities: learnAffinities(profile, 'DISMISS', a.tags).affinities };
-        lines.push(`Got it — no more ${a.label}. I removed them and re-ranked everything else.`);
+        lines.push(`Got it, no more ${a.label}. I removed them and re-ranked everything else.`);
         break;
       }
       case 'budget': {
@@ -52,7 +52,7 @@ export function executeActions(ctx: AgentContext, actions: AgentAction[]): Agent
       case 'local':
         constraints.localBoost = Math.min(0.8, constraints.localBoost + 0.45);
         profile = { ...profile, discoveryStyle: 'local' };
-        lines.push('Prioritised hidden and local places — the spots Romans actually go to.');
+        lines.push('Prioritised hidden and local places, the spots Romans actually go to.');
         break;
       case 'more': {
         const learned = learnAffinities(profile, 'LIKE', a.tags);
@@ -64,7 +64,7 @@ export function executeActions(ctx: AgentContext, actions: AgentAction[]): Agent
       case 'pace': {
         const base = constraints.paceOverride ?? profile.pace;
         constraints.paceOverride = Math.max(0, Math.min(100, base + (a.direction === 'down' ? -35 : 35)));
-        lines.push(a.direction === 'down' ? 'Slowed things down — fewer stops, more time to linger.' : 'Packed in more — extra stops where your days had room.');
+        lines.push(a.direction === 'down' ? 'Slowed things down: fewer stops, more time to linger.' : 'Packed in more: extra stops where your days had room.');
         break;
       }
       case 'swap': {
@@ -94,13 +94,13 @@ export function executeActions(ctx: AgentContext, actions: AgentAction[]): Agent
     const b = tk.checkBudget(current);
     if (actions.some((a) => a.type === 'budget')) {
       lines.push(current.overBudget
-        ? `Even with the leanest options the plan comes to €${b.total} — booked items are locked in. Want me to drop a paid activity?`
+        ? `Even with the leanest options the plan comes to €${b.total}, booked items are locked in. Want me to drop a paid activity?`
         : `Your plan now totals €${b.total}, leaving €${b.remaining} spare.`);
     }
     if (!changes.length && !actions.some((a) => a.type === 'reset')) {
       lines.push(actions.some((a) => a.type === 'exclude')
-        ? 'There were none in your plan, so nothing moved — they will stay out of every future suggestion.'
-        : 'Your current picks already fit this best, so nothing needed to move — future suggestions will follow it.');
+        ? 'There were none in your plan, so nothing moved, they will stay out of every future suggestion.'
+        : 'Your current picks already fit this best, so nothing needed to move, future suggestions will follow it.');
     } else if (changes.length && actions.some((a) => a.type === 'romance') && current.days.some((d) => !d.isOccasion && d.items.some((i) => changes.some((c) => c.date === d.date && c.time === i.time)))) {
       lines.push('To keep you within budget I rebalanced a few stops on other days.');
     }
@@ -134,14 +134,14 @@ export function executeActions(ctx: AgentContext, actions: AgentAction[]): Agent
     if (a.type === 'summary') {
       const b = tk.checkBudget(current);
       const stops = current.days.reduce((s, d) => s + d.items.length, 0);
-      lines.push(`${current.days.length} days, ${stops} stops. Experiences total €${b.total} of your €${b.budget} budget${b.remaining >= 0 ? ` — €${b.remaining} to spare` : ` — €${-b.remaining} over`}.`);
+      lines.push(`${current.days.length} days, ${stops} stops. Experiences total €${b.total} of your €${b.budget} budget${b.remaining >= 0 ? `, €${b.remaining} to spare` : `, €${-b.remaining} over`}.`);
     }
     if (a.type === 'bundle') {
       bundle = tk.createBundle(current, `${profile.destination} ${profile.tripType === 'birthday' ? 'Birthday' : ''} Experience`.replace(/\s+/g, ' '));
-      lines.push(`I bundled ${bundle.lines.length} experiences: €${bundle.subtotal} individually, €${bundle.total} as a bundle — you save €${bundle.discount}.`);
+      lines.push(`I bundled ${bundle.lines.length} experiences: €${bundle.subtotal} individually, €${bundle.total} as a bundle, you save €${bundle.discount}.`);
     }
     if (a.type === 'help') {
-      lines.push("I can reshape your trip — make a day more romantic, drop things you don't enjoy, fit a budget, go more local, change the pace, or swap any stop. Try one of these:");
+      lines.push("I can reshape your trip: make a day more romantic, drop things you don't enjoy, fit a budget, go more local, change the pace, or swap any stop. Try one of these:");
     }
   }
 

@@ -18,7 +18,7 @@ export function ComingSoon({ query }: { query: string }) {
         AROUND isn’t in {name || 'that city'} <em className="font-light text-terra">yet.</em>
       </h1>
       <p className="mx-auto mt-4 max-w-lg text-[15px] leading-relaxed text-ink-500">
-        This proof of concept ships with a hand-curated catalogue for Rome — stays, experiences, restaurants and nightlife, all scored by the Experience Match engine. New cities plug into the same engine through the catalogue repository.
+        This proof of concept ships with a hand-curated catalogue for Rome: stays, experiences, restaurants and nightlife, all scored by the Experience Match engine. New cities plug into the same engine through the catalogue repository.
       </p>
       <div className="mt-8 flex flex-wrap justify-center gap-3">
         <ButtonLink href="/stays" size="lg">Explore Rome instead →</ButtonLink>
