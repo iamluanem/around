@@ -1,0 +1,235 @@
+// AROUND — personalization & experience-commerce data model.
+// The demo runs fully in memory by default (DATA_SOURCE=memory).
+// Set DATA_SOURCE=prisma + DATABASE_URL and run `npm run db:setup` to use PostgreSQL.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum TripType {
+  romantic
+  birthday
+  friends
+  family
+  solo
+  business
+  adventure
+  relaxation
+}
+
+enum DiscoveryStyle {
+  highlights
+  balanced
+  local
+}
+
+enum InteractionType {
+  VIEW
+  CLICK
+  SAVE
+  DISMISS
+  BOOK
+  REPLACE
+  LIKE
+}
+
+enum BookingKind {
+  stay
+  experience
+  bundle
+}
+
+model User {
+  id         String            @id @default(cuid())
+  email      String?           @unique
+  name       String?
+  createdAt  DateTime          @default(now())
+  profile    TravelerProfile?
+  trips      Trip[]
+  interactions Interaction[]
+  bookings   Booking[]
+}
+
+model TravelerProfile {
+  id             String         @id @default(cuid())
+  userId         String         @unique
+  user           User           @relation(fields: [userId], references: [id])
+  tripType       TripType
+  travelers      Int
+  interests      String[]
+  style          String
+  budgetPerDay   Int
+  totalBudget    Int
+  pace           Int
+  discoveryStyle DiscoveryStyle
+  /// learned interest weights, e.g. {"food": 1.24, "nightlife": -0.3}
+  affinities     Json           @default("{}")
+  updatedAt      DateTime       @updatedAt
+}
+
+model Trip {
+  id           String     @id @default(cuid())
+  userId       String
+  user         User       @relation(fields: [userId], references: [id])
+  destination  String
+  startDate    DateTime
+  endDate      DateTime
+  occasion     String?
+  occasionDate DateTime?
+  stayId       String?
+  stay         Accommodation? @relation(fields: [stayId], references: [id])
+  itineraries  Itinerary[]
+  bookings     Booking[]
+  createdAt    DateTime   @default(now())
+}
+
+model Accommodation {
+  id           String   @id
+  title        String
+  type         String
+  neighborhood String
+  lat          Float
+  lng          Float
+  nightlyPrice Int
+  rating       Float
+  reviewCount  Int
+  amenities    String[]
+  images       String[]
+  description  String
+  host         String
+  vibes        String[]
+  maxGuests    Int
+  bedrooms     Int
+  walkability  Float
+  trips        Trip[]
+  recommendations Recommendation[]
+}
+
+model ExperienceCategory {
+  id          String       @id // experience | tour | restaurant | cafe | nightlife | attraction | event | walk
+  label       String
+  experiences Experience[]
+}
+
+model ExperienceProvider {
+  id          String       @id
+  name        String
+  verified    Boolean
+  since       Int
+  experiences Experience[]
+}
+
+model Experience {
+  id           String             @id
+  name         String
+  categoryId   String
+  category     ExperienceCategory @relation(fields: [categoryId], references: [id])
+  subcategory  String
+  tags         String[]
+  price        Int
+  durationMin  Int
+  rating       Float
+  reviewCount  Int
+  lat          Float
+  lng          Float
+  neighborhood String
+  description  String
+  image        String
+  providerId   String
+  provider     ExperienceProvider @relation(fields: [providerId], references: [id])
+  localness    Float
+  contexts     String[]
+  styles       String[]
+  times        String[]
+  bookable     Boolean
+  itineraryItems ItineraryItem[]
+  recommendations Recommendation[]
+
+  @@index([categoryId])
+  @@index([neighborhood])
+}
+
+/// Snapshot of an explainable score, kept for offline evaluation (match vs conversion).
+model Recommendation {
+  id              String         @id @default(cuid())
+  userId          String?
+  accommodationId String?
+  accommodation   Accommodation? @relation(fields: [accommodationId], references: [id])
+  experienceId    String?
+  experience      Experience?    @relation(fields: [experienceId], references: [id])
+  score           Int
+  breakdown       Json
+  reasons         String[]
+  createdAt       DateTime       @default(now())
+}
+
+model Interaction {
+  id         String          @id @default(cuid())
+  userId     String?
+  user       User?           @relation(fields: [userId], references: [id])
+  type       InteractionType
+  targetType String
+  targetId   String
+  tags       String[]
+  createdAt  DateTime        @default(now())
+
+  @@index([type, targetType])
+}
+
+model Itinerary {
+  id          String          @id @default(cuid())
+  tripId      String
+  trip        Trip            @relation(fields: [tripId], references: [id])
+  version     Int
+  budget      Int
+  total       Int
+  constraints Json
+  items       ItineraryItem[]
+  createdAt   DateTime        @default(now())
+}
+
+model ItineraryItem {
+  id           String     @id @default(cuid())
+  itineraryId  String
+  itinerary    Itinerary  @relation(fields: [itineraryId], references: [id])
+  slotKey      String
+  date         DateTime
+  time         String
+  slot         String
+  experienceId String
+  experience   Experience @relation(fields: [experienceId], references: [id])
+  matchScore   Int
+}
+
+model Bundle {
+  id           String    @id @default(cuid())
+  name         String
+  experienceIds String[]
+  subtotal     Int
+  discountRate Float
+  total        Int
+  createdAt    DateTime  @default(now())
+  bookings     Booking[]
+}
+
+model Booking {
+  id           String      @id @default(cuid())
+  userId       String?
+  user         User?       @relation(fields: [userId], references: [id])
+  tripId       String?
+  trip         Trip?       @relation(fields: [tripId], references: [id])
+  bundleId     String?
+  bundle       Bundle?     @relation(fields: [bundleId], references: [id])
+  kind         BookingKind
+  refIds       String[]
+  label        String
+  amount       Int
+  currency     String      @default("EUR")
+  confirmation String      @unique
+  createdAt    DateTime    @default(now())
+}
