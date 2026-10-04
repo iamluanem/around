@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/format';
 import { remoteFallback } from '@/lib/images';
 
@@ -12,7 +12,14 @@ export function Photo({ src, alt, className, label }: { src: string; alt: string
   const [current, setCurrent] = useState(src);
   const [failed, setFailed] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  const ref = useRef<HTMLImageElement>(null);
+  const onError = () => { const remote = remoteFallback(current); if (remote && remote !== current) setCurrent(remote); else setFailed(true); };
   useEffect(() => { setCurrent(src); setFailed(false); setLoaded(false); }, [src]);
+  // An image can finish loading before React hydrates and attaches onLoad; check it directly.
+  useEffect(() => {
+    const el = ref.current;
+    if (el?.complete) el.naturalWidth > 0 ? setLoaded(true) : onError();
+  }, [current]); // eslint-disable-line react-hooks/exhaustive-deps
   const h = [...alt].reduce((s, c) => s + c.charCodeAt(0), 0);
   const [a, b] = PALETTES[h % PALETTES.length];
   return (
@@ -27,9 +34,9 @@ export function Photo({ src, alt, className, label }: { src: string; alt: string
           {!loaded && <div className="shimmer absolute inset-0" />}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={current} alt={alt} loading="lazy" referrerPolicy="no-referrer"
+            ref={ref} src={current} alt={alt} loading="lazy" referrerPolicy="no-referrer"
             onLoad={() => setLoaded(true)}
-            onError={() => { const remote = remoteFallback(current); if (remote && remote !== current) setCurrent(remote); else setFailed(true); }}
+            onError={onError}
             className={cn('h-full w-full object-cover transition duration-700', loaded ? 'opacity-100' : 'opacity-0')}
           />
         </>
