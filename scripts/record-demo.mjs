@@ -22,7 +22,7 @@ const OVERLAY = `
     addEventListener('mousedown', () => { c.style.transform = 'scale(.7)'; }, true);
     addEventListener('mouseup', () => { c.style.transform = ''; }, true);
     const cap = document.createElement('div'); cap.id = '__caption';
-    cap.style.cssText = 'position:fixed;z-index:99998;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);opacity:0;max-width:880px;padding:14px 22px;border-radius:999px;background:rgba(30,26,22,.92);color:#FBF8F3;font:500 17px/1.35 Inter,system-ui,sans-serif;box-shadow:0 18px 40px -12px rgba(0,0,0,.45);transition:all .45s cubic-bezier(.2,.7,.2,1);pointer-events:none;text-align:center';
+    cap.style.cssText = 'position:fixed;z-index:99998;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);opacity:0;max-width:880px;padding:14px 22px;border-radius:999px;background:rgba(30,26,22,.92);color:#FBF8F3;font:500 17px/1.35 Inter Variable,Inter,system-ui,sans-serif;box-shadow:0 18px 40px -12px rgba(0,0,0,.45);transition:all .45s cubic-bezier(.2,.7,.2,1);pointer-events:none;text-align:center';
     document.body.appendChild(cap);
     const saved = sessionStorage.getItem('__caption');
     if (saved) { cap.innerHTML = saved; cap.style.opacity = 1; cap.style.transform = 'translateX(-50%)'; }
@@ -140,7 +140,7 @@ async function main() {
   await wait(2800);
 
   // 8. Preference learning
-  await page.goto(BASE + '/experiences'); await wait(1600);
+  await page.goto(BASE + '/experiences'); await page.locator('article').first().waitFor(); await wait(1200);
   await caption('Every click, save and dismiss teaches the taste profile');
   const card = page.locator('article').nth(2);
   await moveTo(card); await wait(500);
