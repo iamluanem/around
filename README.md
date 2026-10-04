@@ -43,6 +43,19 @@ Travelers choose where to stay without fully understanding what they can experie
 6. **/experiences** → open, save or dismiss items and watch the **"Your taste, learning"** panel move.
 7. **/admin/analytics** (hidden) and **/concept** (pitch).
 
+## Demo video
+
+[▶ Watch the 2:40 walkthrough](docs/demo/around-demo.mp4): search, 94% Experience Match, stay booking, AI planner, conversational agent, bundle checkout, preference learning and the business dashboard.
+
+Re-record it locally (real photos load on your machine):
+
+```bash
+npm run dev                      # terminal 1
+npx playwright install chromium  # first time only
+npm run record:demo              # terminal 2, saves docs/demo/around-demo.webm
+ffmpeg -i docs/demo/around-demo.webm -c:v libx264 -crf 24 -pix_fmt yuv420p -movflags +faststart docs/demo/around-demo.mp4
+```
+
 ## Screenshots
 
 | Home | Stays ranked by match | Stay experience page |
