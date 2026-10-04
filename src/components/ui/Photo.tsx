@@ -1,6 +1,7 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { cn } from '@/lib/format';
+import { remoteFallback } from '@/lib/images';
 
 const PALETTES = [
   ['#C2532B', '#E9B48A'], ['#5C6B3A', '#C9CFA8'], ['#B98A3A', '#F0D9A8'], ['#8FB3BF', '#E3EEF1'], ['#7A4B3A', '#E2C1A8'],
@@ -8,8 +9,10 @@ const PALETTES = [
 
 /** Image with an editorial gradient fallback, so the demo never shows a broken photo. */
 export function Photo({ src, alt, className, label }: { src: string; alt: string; className?: string; label?: string }) {
+  const [current, setCurrent] = useState(src);
   const [failed, setFailed] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  useEffect(() => { setCurrent(src); setFailed(false); setLoaded(false); }, [src]);
   const h = [...alt].reduce((s, c) => s + c.charCodeAt(0), 0);
   const [a, b] = PALETTES[h % PALETTES.length];
   return (
@@ -24,8 +27,9 @@ export function Photo({ src, alt, className, label }: { src: string; alt: string
           {!loaded && <div className="shimmer absolute inset-0" />}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={src} alt={alt} loading="lazy" referrerPolicy="no-referrer"
-            onLoad={() => setLoaded(true)} onError={() => setFailed(true)}
+            src={current} alt={alt} loading="lazy" referrerPolicy="no-referrer"
+            onLoad={() => setLoaded(true)}
+            onError={() => { const remote = remoteFallback(current); if (remote && remote !== current) setCurrent(remote); else setFailed(true); }}
             className={cn('h-full w-full object-cover transition duration-700', loaded ? 'opacity-100' : 'opacity-0')}
           />
         </>

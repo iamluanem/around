@@ -2,8 +2,7 @@ import { ButtonLink } from '@/components/ui/Button';
 import { Photo } from '@/components/ui/Photo';
 import { SearchBar } from '@/features/accommodations/SearchBar';
 import { DemoStart } from '@/features/traveler-profile/DemoStart';
-
-const u = (id: string) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=900&q=70`;
+import { photo as u } from '@/lib/images';
 
 export default function Home() {
   return (

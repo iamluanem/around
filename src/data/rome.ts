@@ -1,9 +1,10 @@
 import type { Accommodation, Experience, ExperienceProvider, Interest, TimeOfDay, TravelStyle, TripType } from '@/domain/types';
+import { photo } from '@/lib/images';
 
 // Demo catalogue for Rome. Businesses are fictional; landmarks are real.
 // Prices are EUR for the whole party (up to 2 guests). Coordinates are approximate.
 
-const img = (id: string, w = 1200) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=70`;
+const img = (id: string) => photo(id);
 
 export const PROVIDERS: ExperienceProvider[] = [
   { id: 'p-local', name: 'Roma Locale Collective', verified: true, since: 2016 },
@@ -97,7 +98,7 @@ const IMG: Record<string, string> = {
 const x = (e: X): Experience => ({
   ...e,
   providerId: e.providerId ?? (e.category === 'attraction' ? 'p-city' : e.category === 'restaurant' || e.category === 'nightlife' ? 'p-venue' : 'p-local'),
-  image: img(e.image ?? IMG[e.subcategory] ?? IMG.tour, 900),
+  image: img(e.image ?? IMG[e.subcategory] ?? IMG.tour),
   // Premium tables are reservable set menus; trattorias are walk-in (pay at venue, shown as estimated spend).
   bookable: e.bookable ?? (e.category === 'restaurant' ? e.tags.includes('luxury') || e.tags.includes('romantic') : e.price > 0),
 });
