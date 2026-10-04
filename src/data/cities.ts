@@ -6,6 +6,7 @@ export const CITIES: City[] = [
   { id: 'lisbon', name: 'Lisbon', country: 'Portugal', available: false, aliases: ['lisboa'] },
   { id: 'kyoto', name: 'Kyoto', country: 'Japan', available: false },
   { id: 'barcelona', name: 'Barcelona', country: 'Spain', available: false },
+  { id: 'madrid', name: 'Madrid', country: 'Spain', available: false },
   { id: 'paris', name: 'Paris', country: 'France', available: false },
   { id: 'florence', name: 'Florence', country: 'Italy', available: false, aliases: ['firenze', 'florença'] },
   { id: 'mexico-city', name: 'Mexico City', country: 'Mexico', available: false, aliases: ['cdmx', 'cidade do méxico'] },
