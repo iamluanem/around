@@ -154,6 +154,14 @@ npm run dev          # http://localhost:3000
 
 That's it: the demo runs fully in memory, with no database, API keys or payments.
 
+Photos live in `public/images` so the demo works offline. To (re)download them from Unsplash:
+
+```bash
+npm run images:fetch
+```
+
+If a local photo is missing, the app loads it from Unsplash, and falls back to an illustrated gradient if that fails too.
+
 Optional PostgreSQL:
 
 ```bash
