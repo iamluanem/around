@@ -13,8 +13,8 @@ export default {
         tiber: { DEFAULT: '#8FB3BF', 100: '#E3EEF1' },
       },
       fontFamily: {
-        serif: ['Fraunces', 'Georgia', 'serif'],
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        serif: ['"Fraunces Variable"', 'Fraunces', 'Georgia', 'serif'],
+        sans: ['"Inter Variable"', 'Inter', 'system-ui', 'sans-serif'],
       },
       boxShadow: {
         soft: '0 1px 2px rgba(30,26,22,0.04), 0 8px 24px -12px rgba(30,26,22,0.12)',
