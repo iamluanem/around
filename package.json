@@ -15,7 +15,8 @@
     "test:engine": "tsx scripts/engine-report.ts",
     "db:push": "prisma db push",
     "db:seed": "tsx prisma/seed.ts",
-    "db:setup": "prisma generate && prisma db push && tsx prisma/seed.ts"
+    "db:setup": "prisma generate && prisma db push && tsx prisma/seed.ts",
+    "record:demo": "node scripts/record-demo.mjs"
   },
   "dependencies": {
     "@prisma/client": "^6.19.0",
@@ -30,6 +31,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "autoprefixer": "^10.4.20",
+    "playwright": "^1.56.0",
     "postcss": "^8.4.49",
     "prisma": "^6.19.0",
     "tailwindcss": "^3.4.19",

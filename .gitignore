@@ -3,3 +3,7 @@ node_modules
 .env
 *.tsbuildinfo
 next-env.d.ts
+
+# demo recording artifacts
+docs/demo/.raw
+docs/demo/*.webm
